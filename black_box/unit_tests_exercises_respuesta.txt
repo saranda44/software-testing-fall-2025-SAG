@@ -1,0 +1,39 @@
+1. Function that checks if a given number is positive, negative, or zero.
+  Respuesta
+  1) 5
+  2) -5
+  3) 0
+  4) "hola"
+  5) null
+  6) 0.7
+  7) true
+
+
+2. Function that validates user passwords.
+Respuesta
+  1) 12345678
+  2) contraseña
+  3) Password123#
+  4) 12aA
+  5) Pass1234
+  6) 1234hola
+  7) PASS&%$#
+  8) $%&#eeee
+  9) PASSword
+  10) null
+  11) false
+
+3. Function that calculates the discount for a customer's purchase based on the total amount.
+  Respuesta
+  1) 50
+  2) 45.5
+  4) 100
+  5) 500
+  6) 350
+  7) 200.50
+  8) 600
+  9) -10
+  10) null
+  11) 0
+  12) "hola"
+  13) true
