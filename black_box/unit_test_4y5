@@ -1,0 +1,26 @@
+4. Function that processes user orders in an e-commerce system.
+
+1) 1 -> sin descuento
+2) 5 -> sin descuento
+3) 3 -> sin descuento
+4) 6 -> 5% descuento
+5) 10 -> 5% descuento
+6) 8 -> 5% descuento
+7) 11 -> 10% descuento
+8) 0 -> carrito vacio
+
+9. Function that calculates shipping costs for an online shopping system.
+
+Standard shipping
+1) Standard shipping, 1.2kg -> $10
+2) Standard shipping, 5kg -> $10
+3) Standar shipping, 5.01 -> $15. En clase se acordo que de 5.01 a 10 el costo es $15
+4) Standard shipping, 10kg -> $15
+5) Standard shipping, 23kg -> $20
+
+express shipping
+1) express shipping, 2kg -> $20
+2) express shipping, 5kg -> $20.
+3) express shipping, 5.01 -> $30. En clase se acordo que de 5.01 a 10 el costo es $30
+4) express shipping, 10kg -> $30
+5) express shipping, 32kg -> $40
