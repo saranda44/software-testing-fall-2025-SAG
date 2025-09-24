@@ -12,7 +12,7 @@ from white_box.class_exercises import (
 )
 
 
-class TestWhiteBox(unittest.TestCase):
+class TestWhiteBox2(unittest.TestCase):
     """
     White-box unittest class.
     """
