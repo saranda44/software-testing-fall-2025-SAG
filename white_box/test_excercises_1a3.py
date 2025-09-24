@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from white_box.class_exercises import (
+    calculate_total_discount,
     check_number_status,
     validate_password,
-    calculate_total_discount
 )
 
 
@@ -11,26 +12,27 @@ class TestWhiteBox(unittest.TestCase):
     """
     White-box unittest class.
     """
+
     # 1
     def test_check_number_status_with_positive_number(self):
         """
         Checks if a number is positive.
         """
-        self.assertEqual(check_number_status(0.01), 'Positive')
+        self.assertEqual(check_number_status(0.01), "Positive")
 
     def test_check_number_status_with_negative_number(self):
         """
         Checks if a number is negative.
         """
-        self.assertEqual(check_number_status(-0.01), 'Negative')
+        self.assertEqual(check_number_status(-0.01), "Negative")
 
     def test_check_number_status_with_zero(self):
         """
         Checks if a number is zero.
         """
-        self.assertEqual(check_number_status(0),'Zero')
+        self.assertEqual(check_number_status(0), "Zero")
 
-    #2
+    # 2
     def test_password_too_short(self):
         """
         Password shorter than 8 characters.
@@ -67,7 +69,7 @@ class TestWhiteBox(unittest.TestCase):
         """
         self.assertTrue(validate_password("Abc123!d"))
 
-    #3
+    # 3
     def test_amount_below_100(self):
         """
         Amount less than 100.
@@ -94,7 +96,6 @@ class TestWhiteBox(unittest.TestCase):
 
     def test_amount_above_500(self):
         """
-        Amount greater than 500.
+        Amount greater than 500
         """
-        self.assertEqual(round(calculate_total_discount(500.01),3), 100.002)
-    
+        self.assertEqual(round(calculate_total_discount(500.01), 3), 100.002)

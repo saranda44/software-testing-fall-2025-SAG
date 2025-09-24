@@ -7,11 +7,11 @@ import unittest
 
 from white_box.class_exercises import (
     VendingMachine,
+    check_number_status,
     divide,
     get_grade,
     is_even,
     is_triangle,
-    check_number_status
 )
 
 
