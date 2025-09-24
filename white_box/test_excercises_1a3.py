@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+Unit tests for white_box exercises 1 to 3.
+"""
+
 import unittest
 
 from white_box.class_exercises import (
