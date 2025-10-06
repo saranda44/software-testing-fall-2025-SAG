@@ -96,7 +96,7 @@ class TestPerformActionBasedOnTime(unittest.TestCase):
         """
         result = perform_action_based_on_time()
         self.assertEqual(result, "Action A")
-        mock_time.assert_called_once()  # Asegura que time.time() fue llamado exactamente una vez dentro de la funcióN
+        mock_time.assert_called_once()  # Asegura que time() fue llamado una vez
 
     @patch("white_box.mockup_exercises.time.time", return_value=10)
     def test_action_b_when_time_greater_than_or_equal_10(self, mock_time):
