@@ -3,8 +3,11 @@
 
 
 def fizzbuzz(number):
-    """funcion fizzbuzz iteracion 2: return string number"""
+    """funcion fizzbuzz iteracion 3: return "Fizz" cuando el numero es multiplo de 3"""
     result = ""
     if number % 3 != 0 and number % 5 != 0:
         result = str(number)
+
+    if number % 3 == 0:
+        result = "Fizz"
     return result
