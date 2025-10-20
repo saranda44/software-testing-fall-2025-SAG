@@ -14,4 +14,7 @@ def fizzbuzz(number):
     if number % 5 == 0:
         result = "Buzz"
 
+    if number % 3 == 0 and number % 5 == 0:
+        result = "FizzBuzz"
+
     return result
