@@ -51,6 +51,9 @@ def add_v4(string_number):
     if string_number == "":
         return 0
 
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
     if string_number.endswith(",") or string_number.endswith("\n"):
         raise ValueError("Separador al final no permitido")
 
@@ -64,6 +67,11 @@ def add_v5(string_number):
     """version 5"""
     if string_number == "":
         return 0
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
+    if string_number.endswith(",") or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
 
     delimiter = ","
     if string_number.startswith("//"):
@@ -89,8 +97,36 @@ def add_v5(string_number):
 
 
 def add_v6(string_number):
-    """version dummy"""
-    return string_number
+    """version 6"""
+    if string_number == "":
+        return 0
+
+    delimiter = ","
+    if string_number.startswith("//"):
+        header, string_number = string_number.split("\n", 1)
+        delimiter = header[2:]
+    else:
+        parts = string_number.replace("\n", ",").split(",")
+        negatives = [num for num in parts if num.startswith("-")]
+        if negatives:
+            return f"Negative number(s) not allowed: {', '.join(negatives)}"
+
+    result = 0
+    index = 0
+    while index < len(string_number):
+        if string_number[index].isdigit():
+            num_str = ""
+            while index < len(string_number) and string_number[index].isdigit():
+                num_str += string_number[index]
+                index += 1
+            result += int(num_str)
+        elif string_number.startswith(delimiter, index):
+            index += len(delimiter)
+        else:
+            raise ValueError(
+                f"'{delimiter}' expected but '{string_number[index]}' found at position {index}."
+            )
+    return result
 
 
 def add_v7(string_number):
