@@ -47,8 +47,17 @@ def add_v3(string_number):
 
 
 def add_v4(string_number):
-    """version dummy"""
-    return string_number
+    """version 4"""
+    if string_number == "":
+        return 0
+
+    if string_number.endswith(",") or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
+
+    numbers = string_number.replace("\n", ",")
+    parts = numbers.split(",")
+
+    return sum(int(num) for num in parts if num)
 
 
 def add_v5(string_number):
