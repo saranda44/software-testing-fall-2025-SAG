@@ -18,8 +18,17 @@ def add_v1(string_number):
 
 
 def add_v2(string_number):
-    """version dummy"""
-    return string_number
+    """version 2"""
+    if string_number == "":
+        return 0
+
+    parts = string_number.split(",")
+    total = 0
+
+    for num in parts:
+        total += int(num)
+
+    return total
 
 
 def add_v3(string_number):
