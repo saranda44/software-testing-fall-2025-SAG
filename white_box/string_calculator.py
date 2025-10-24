@@ -143,7 +143,7 @@ def add_v6(string_number):
     return result
 
 
-def add(string_number):
+def add_v7(string_number):
     """version 7"""
     if string_number == "":
         return 0
@@ -207,6 +207,61 @@ def add(string_number):
     return result
 
 
-def add_v8(string_number):
+def add(string_number):
     """version 8"""
-    return string_number
+    if string_number == "":
+        return 0
+
+    delimiter = ","
+    errors = []
+    negatives = []
+
+    # Detectar delimitador personalizado
+    if string_number.startswith("//"):
+        header, string_number = string_number.split("\n", 1)
+        delimiter = header[2:]
+
+    # Validaciones iniciales
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
+    if string_number.endswith(delimiter) or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
+
+    # Reemplazar saltos de línea por el delimitador
+    if delimiter != "\n":
+        string_number = string_number.replace("\n", delimiter)
+
+    tokens = string_number.split(delimiter)
+    result = 0
+
+    for token in tokens:
+        if token == "":
+            continue
+
+        # Si hay delimitador mezclado incorrecto (como “|2,3”)
+        if not token.replace("-", "").isdigit():
+            pos = string_number.find(",")
+            errors.append(f"'{delimiter}' expected but ',' found at position {pos}.")
+            continue
+
+        num = int(token)
+
+        # Negativos
+        if num < 0:
+            negatives.append(str(num))
+            continue
+
+        # Ignorar mayores a 1000
+        if num <= 1000:
+            result += num
+
+    # Solo negativos
+    if negatives:
+        return f"Negative number(s) not allowed: {', '.join(negatives)}"
+
+    # lanzar ValueError
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    return result

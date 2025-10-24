@@ -2,7 +2,7 @@
 """Module test function add"""
 import unittest
 
-from white_box.string_calculator import add, add_v8
+from white_box.string_calculator import add
 
 
 class TestStringCalculator(unittest.TestCase):
@@ -87,8 +87,8 @@ class TestStringCalculator(unittest.TestCase):
     # Requerimiento 8
     def test_should_ignore_numbers_greater_than_1000_when_calculating_sum(self):
         """Ignorar números mayores a 1000"""
-        self.assertEqual(add_v8("2,1001"), 2)
+        self.assertEqual(add("2,1001"), 2)
 
     def test_should_include_numbers_less_or_equal_to_1000_when_calculating_sum(self):
         """Incluir números menores o iguales a 1000 en la suma"""
-        self.assertEqual(add_v8("2,1000"), 1002)
+        self.assertEqual(add("2,1000"), 1002)
