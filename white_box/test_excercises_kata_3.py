@@ -12,11 +12,13 @@ class TestValidatePassword(unittest.TestCase):
     def test_password_too_short(self):
         """Password shorter than 8 characters should fail."""
         result = validate_password("Ab1@111")
+        self.assertFalse(result["is_valid"])
         self.assertIn("Password must be at least 8 characters", result["errors"])
 
     def test_password_exactly_8_characters(self):
-        """Password with exactly 8 characters passes length rule."""
-        result = validate_password("Ab12@def")
+        """Password with exactly 8 characters passes length rule, but is not valid."""
+        result = validate_password("password")
+        self.assertFalse(result["is_valid"])
         self.assertNotIn("Password must be at least 8 characters", result["errors"])
 
     # ---- Requerimiento 2: al menos 2 números ----
@@ -33,8 +35,9 @@ class TestValidatePassword(unittest.TestCase):
         self.assertIn("The password must contain at least 2 numbers", result["errors"])
 
     def test_password_with_two_numbers(self):
-        """Password with two digits passes."""
-        result = validate_password("Abcde12@")
+        """Password with two digits passes that rule, but is not valid yet."""
+        result = validate_password("abcdef12")
+        self.assertFalse(result["is_valid"])
         self.assertNotIn(
             "The password must contain at least 2 numbers", result["errors"]
         )
@@ -65,7 +68,8 @@ class TestValidatePassword(unittest.TestCase):
 
     def test_password_with_capital_letter(self):
         """Password with uppercase passes."""
-        result = validate_password("Abcde12@")
+        result = validate_password("Abcde123")
+        self.assertFalse(result["is_valid"])
         self.assertNotIn(
             "password must contain at least one capital letter", result["errors"]
         )
@@ -82,6 +86,7 @@ class TestValidatePassword(unittest.TestCase):
     def test_password_with_special_character(self):
         """Password with special character passes."""
         result = validate_password("Abcde12@")
+        self.assertTrue(result["is_valid"])
         self.assertNotIn(
             "password must contain at least one special character", result["errors"]
         )
