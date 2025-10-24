@@ -67,37 +67,39 @@ def add_v5(string_number):
     """version 5"""
     if string_number == "":
         return 0
-    if ",\n" in string_number or "\n," in string_number:
-        raise ValueError("Separadores inválidos mezclados")
-
-    if string_number.endswith(",") or string_number.endswith("\n"):
-        raise ValueError("Separador al final no permitido")
 
     delimiter = ","
     if string_number.startswith("//"):
         header, string_number = string_number.split("\n", 1)
         delimiter = header[2:]
 
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
+    if string_number.endswith(",") or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
+
+    if delimiter != "\n":
+        string_number = string_number.replace("\n", delimiter)
+
+    tokens = string_number.split(delimiter)
     result = 0
-    index = 0
-    while index < len(string_number):
-        if string_number[index].isdigit():
-            num_str = ""
-            while index < len(string_number) and string_number[index].isdigit():
-                num_str += string_number[index]
-                index += 1
-            result += int(num_str)
-        elif string_number.startswith(delimiter, index):
-            index += len(delimiter)
-        else:
-            raise ValueError(
-                f"'{delimiter}' expected but '{string_number[index]}' found at position {index}."
-            )
+
+    for token in tokens:
+        if token == "":
+            continue
+
+        try:
+            result += int(token)
+        except ValueError as exc:
+            raise ValueError(f"'{delimiter}' expected but '{token}' found.") from exc
+
     return result
 
 
 def add_v6(string_number):
     """version 6"""
+
     if string_number == "":
         return 0
 
@@ -105,35 +107,106 @@ def add_v6(string_number):
     if string_number.startswith("//"):
         header, string_number = string_number.split("\n", 1)
         delimiter = header[2:]
-    else:
-        parts = string_number.replace("\n", ",").split(",")
-        negatives = [num for num in parts if num.startswith("-")]
-        if negatives:
-            return f"Negative number(s) not allowed: {', '.join(negatives)}"
 
+    # Validación de mezcla de separadores
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
+    # Validación de separador al final
+    if string_number.endswith(delimiter) or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
+
+    # Reemplazar saltos de línea por el delimitador si no es personalizado
+    if delimiter != "\n":
+        string_number = string_number.replace("\n", delimiter)
+
+    tokens = string_number.split(delimiter)
     result = 0
-    index = 0
-    while index < len(string_number):
-        if string_number[index].isdigit():
-            num_str = ""
-            while index < len(string_number) and string_number[index].isdigit():
-                num_str += string_number[index]
-                index += 1
-            result += int(num_str)
-        elif string_number.startswith(delimiter, index):
-            index += len(delimiter)
+    negatives = []
+
+    for token in tokens:
+        if token == "":
+            continue
+        if token.startswith("-"):
+            negatives.append(token)
         else:
-            raise ValueError(
-                f"'{delimiter}' expected but '{string_number[index]}' found at position {index}."
-            )
+            try:
+                result += int(token)
+            except ValueError as exc:
+                raise ValueError(
+                    f"'{delimiter}' expected but '{token}' found."
+                ) from exc
+
+    if negatives:
+        return f"Negative number(s) not allowed: {', '.join(negatives)}"
+
     return result
 
 
-def add_v7(string_number):
-    """version dummy"""
-    return string_number
+def add(string_number):
+    """version 7"""
+    if string_number == "":
+        return 0
+
+    delimiter = ","
+    errors = []
+    negatives = []
+
+    # Detectar delimitador personalizado
+    if string_number.startswith("//"):
+        header, string_number = string_number.split("\n", 1)
+        delimiter = header[2:]
+
+    # Validaciones iniciales
+    if ",\n" in string_number or "\n," in string_number:
+        raise ValueError("Separadores inválidos mezclados")
+
+    if string_number.endswith(delimiter) or string_number.endswith("\n"):
+        raise ValueError("Separador al final no permitido")
+
+    # Reemplazar saltos de línea por el delimitador
+    if delimiter != "\n":
+        string_number = string_number.replace("\n", delimiter)
+
+    tokens = string_number.split(delimiter)
+    result = 0
+
+    for token in tokens:
+        if token == "":
+            continue
+
+        # Si hay delimitador mezclado incorrecto (como “|2,3”)
+        if not token.replace("-", "").isdigit():
+            pos = string_number.find(",")
+            errors.append(f"'{delimiter}' expected but ',' found at position {pos}.")
+            continue
+
+        num = int(token)
+
+        # Negativos
+        if num < 0:
+            negatives.append(str(num))
+            continue
+
+        result += num
+
+    # Si hay negativos y errores combinados
+    if negatives and errors:
+        return f"Negative number(s) not allowed: {', '.join(negatives)}\n" + "\n".join(
+            errors
+        )
+
+    # Solo negativos
+    if negatives:
+        return f"Negative number(s) not allowed: {', '.join(negatives)}"
+
+    # lanzar ValueError
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    return result
 
 
 def add_v8(string_number):
-    """version dummy"""
+    """version 8"""
     return string_number
