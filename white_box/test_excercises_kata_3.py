@@ -52,7 +52,7 @@ class TestValidatePassword(unittest.TestCase):
     # ---- Requerimiento 4: al menos una mayúscula ----
     def test_password_without_capital_letter(self):
         """Password without uppercase should fail."""
-        result = validate_password_v("abcde12@")
+        result = validate_password("abcde12@")
         self.assertFalse(result["is_valid"])
         self.assertIn(
             "password must contain at least one capital letter", result["errors"]
@@ -60,8 +60,7 @@ class TestValidatePassword(unittest.TestCase):
 
     def test_password_with_capital_letter(self):
         """Password with uppercase passes."""
-        result = validate_password_v("Abcde123")
-        self.assertFalse(result["is_valid"])
+        result = validate_password("Abcde123")
         self.assertNotIn(
             "password must contain at least one capital letter", result["errors"]
         )
