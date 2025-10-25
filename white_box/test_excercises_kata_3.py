@@ -2,7 +2,7 @@
 """Module test function fizzbuzz"""
 import unittest
 
-from white_box.validate_password import validate_password, validate_password_v
+from white_box.validate_password import validate_password
 
 
 class TestValidatePassword(unittest.TestCase):
@@ -68,7 +68,7 @@ class TestValidatePassword(unittest.TestCase):
     # ---- Requerimiento 5: al menos un carácter especial ----
     def test_password_without_special_character(self):
         """Password without special character should fail."""
-        result = validate_password_v("Abcde123")
+        result = validate_password("Abcde123")
         self.assertFalse(result["is_valid"])
         self.assertIn(
             "password must contain at least one special character", result["errors"]
@@ -76,7 +76,7 @@ class TestValidatePassword(unittest.TestCase):
 
     def test_password_with_special_character(self):
         """Password with special character passes."""
-        result = validate_password_v("Abcde12@")
+        result = validate_password("Abcde12@")
         self.assertTrue(result["is_valid"])
         self.assertNotIn(
             "password must contain at least one special character", result["errors"]
@@ -85,7 +85,7 @@ class TestValidatePassword(unittest.TestCase):
     # Otros casos
     def test_empty_password(self):
         """Empty password should fail all checks."""
-        result = validate_password_v("")
+        result = validate_password("")
         self.assertFalse(result["is_valid"])
         self.assertIn("Password must be at least 8 characters", result["errors"])
         self.assertIn("The password must contain at least 2 numbers", result["errors"])
@@ -98,6 +98,6 @@ class TestValidatePassword(unittest.TestCase):
 
     def test_valid_password(self):
         """Password meets all requirements."""
-        result = validate_password_v("Valid12@")
+        result = validate_password("Valid12@")
         self.assertTrue(result["is_valid"])
         self.assertEqual(result["errors"], [])

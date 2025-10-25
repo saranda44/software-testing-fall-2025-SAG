@@ -54,7 +54,7 @@ def validate_password_v4(password):
     return {"is_valid": len(errors) == 0, "errors": errors}
 
 
-def validate_password(password):
+def validate_password_v5(password):
     """version 5: al menos una letra mayuscula"""
     errors = []
 
@@ -71,7 +71,21 @@ def validate_password(password):
     return {"is_valid": len(errors) == 0, "errors": errors}
 
 
-def validate_password_v(password):
-    """version dummy"""
-    print(password)
-    return {"is_valid": False, "errors": []}
+def validate_password(password):
+    """version 6: debe tener al menos un caracter especial"""
+    errors = []
+
+    if len(password) < 8:
+        errors.append("Password must be at least 8 characters")
+
+    digits = sum(ch.isdigit() for ch in password)
+    if digits < 2:
+        errors.append("The password must contain at least 2 numbers")
+
+    if not any(ch.isupper() for ch in password):
+        errors.append("password must contain at least one capital letter")
+
+    if not any(not ch.isalnum() for ch in password):
+        errors.append("password must contain at least one special character")
+
+    return {"is_valid": len(errors) == 0, "errors": errors}
