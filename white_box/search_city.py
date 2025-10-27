@@ -24,7 +24,8 @@ CITIES = [
 
 def search_city(text):
     """function search city version 1"""
-    result = []
     if len(text) < 2:
-        return result
+        return []
+    result = [city for city in CITIES if city.startswith(text)]
+
     return result
