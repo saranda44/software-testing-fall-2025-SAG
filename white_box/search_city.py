@@ -26,6 +26,9 @@ def search_city(text):
     """function search city version 1"""
     if len(text) < 2:
         return []
-    result = [city for city in CITIES if city.startswith(text)]
+
+    text_lower = text.lower()
+
+    result = [city for city in CITIES if city.lower().startswith(text_lower)]
 
     return result
