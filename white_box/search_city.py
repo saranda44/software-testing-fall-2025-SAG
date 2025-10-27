@@ -24,11 +24,14 @@ CITIES = [
 
 def search_city(text):
     """function search city version 1"""
+    if text == "*":
+        return CITIES
+
     if len(text) < 2:
         return []
 
     text_lower = text.lower()
 
-    result = [city for city in CITIES if city.lower().startswith(text_lower)]
+    result = [city for city in CITIES if text_lower in city.lower()]
 
     return result
