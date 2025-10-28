@@ -14,7 +14,9 @@ def barcode_scanner(barcode, command=None):
     total_print = ""
     if command is None and barcode in PRICES:
         total_print = f"${PRICES[barcode]:.2f}"
-    elif barcode not in PRICES:
+    if barcode not in PRICES:
         total_print = "Error: barcode not found"
+    if barcode == "":
+        total_print = "Error: empty barcode"
 
     return total_print
