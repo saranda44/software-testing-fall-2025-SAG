@@ -17,7 +17,7 @@ class Account:
     def withdraw(self, amount, date=None):
         """withdraw function: rest amount to the balance"""
         print(date)
-        return amount
+        self.balance -= amount
 
     def print_statement(self):
         """print_statement function: print deposits and withdraws"""

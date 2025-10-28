@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Data-driven tests for Account class"""
 # pylint: disable=import-error
+from unittest.mock import Mock
+
 import pytest
 
 from white_box.account import Account
@@ -60,13 +62,11 @@ def test_should_decrease_balance_when_withdraw(
         ),
     ],
 )
-def test_should_print_statement_when_transactions_exist(
-    mocker, transactions, expected_output
-):
+def test_should_print_statement_when_transactions_exist(transactions, expected_output):
     """
     Req 3: Print the account statement to the console
     """
-    printer_mock = mocker.Mock()  # pylint: disable=too-many-function-args
+    printer_mock = Mock()
     account = Account(printer_mock)  # pylint: disable=too-many-function-args
 
     for date, amount in transactions:
