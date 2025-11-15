@@ -17,10 +17,15 @@ from selenium import webdriver
 def step_open_google(context):
     """Opens Google in Chrome."""
     options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-blink-features=AutomationControlled")
+
+    options.add_argument("--headless")  # Modo sin interfaz gráfica
+    options.add_argument("--no-sandbox")  # Necesario en contenedores
+    options.add_argument(
+        "--disable-dev-shm-usage"
+    )  # Evita problemas de memoria compartida
+    options.add_argument("--window-size=1920,1080")
+
+    # options.add_argument("--disable-blink-features=AutomationControlled")
     context.driver = webdriver.Chrome(options=options)
     context.driver.get("https://www.google.com")
 
@@ -31,9 +36,9 @@ def step_search_google(context, query):
     search_box = context.driver.find_element(By.NAME, "q")
     search_box.send_keys(query)
     search_box.send_keys(Keys.RETURN)
-    delay = 20  # seconds
+    delay = 30  # seconds
     wait = WebDriverWait(context.driver, delay)
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div#rcnt")))
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h3")))
 
 
 @when("I click on the first result")  # pylint: disable=not-callable
