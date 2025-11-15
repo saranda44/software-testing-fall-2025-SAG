@@ -31,9 +31,9 @@ def step_search_google(context, query):
     search_box = context.driver.find_element(By.NAME, "q")
     search_box.send_keys(query)
     search_box.send_keys(Keys.RETURN)
-    delay = 10  # seconds
+    delay = 20  # seconds
     wait = WebDriverWait(context.driver, delay)
-    wait.until(EC.presence_of_element_located((By.ID, "search")))
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div#rcnt")))
 
 
 @when("I click on the first result")  # pylint: disable=not-callable
