@@ -18,16 +18,20 @@ def step_open_google(context):
     """Opens Google in Chrome."""
     options = Options()
 
-    options.add_argument("--headless")  # Modo sin interfaz gráfica
-    options.add_argument("--no-sandbox")  # Necesario en contenedores
-    options.add_argument(
-        "--disable-dev-shm-usage"
-    )  # Evita problemas de memoria compartida
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--remote-debugging-port=9222")
 
     # options.add_argument("--disable-blink-features=AutomationControlled")
     context.driver = webdriver.Chrome(options=options)
-    context.driver.get("https://www.google.com")
+    # context.driver.get("https://www.google.com")
+    context.driver.get("https://www.google.com/ncr")
 
 
 @when('I search for "{query}"')  # pylint: disable=not-callable
