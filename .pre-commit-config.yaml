@@ -41,11 +41,10 @@ repos:
         args: [--profile=black]
 
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.2.5
+    rev: v3.0.3
     hooks:
       - id: pylint
-        additional_dependencies:
-          - requests
+        additional_dependencies: [behave, requests, selenium]
 
   - repo: https://github.com/sirosen/check-jsonschema
     rev: 0.28.0
